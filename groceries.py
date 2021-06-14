@@ -41,40 +41,6 @@ def to_usd(my_price):
     """
     return f"${my_price:,.2f}" #> $12,000.71
 
-products_count = len(products)
-#print("--------")
-#print(f"THERE ARE {products_count} PRODUCTS:")
-#print("--------")
-
-#products = sorted(products, key=operator.itemgetter('name'))
-
-#for p in products: 
-
-  #print(" ... ", p["name"], to_usd(p["price"]))
-
-# TODO: write some Python code here to produce the desired output
-
-departments = []
-
-#for p in products:
-    #if p["department"] not in departments: 
-    #departments.append(p["department"])
-
-#print("-----------")
-#print("THERE ARE ",len(departments), " DEPARTMENTS")
-#print("-----------")
-
-#departments.sort() 
-# can only use the .sort() with strings, integers, or other simple variables 
-
-for d in departments:
-    matching_products = [p for p in products if p["department"] == d]
-    label = "product"
-    #print (d, f("Here are your, {len(matching_products)} <<< check the robo advisor code for working f-uses
-    ##print(f"THERE ARE {products_count} PRODUCTS:")
-
-
-####### Begin actual code for class assignment here #######
 
 print("Please input a product ID or type 'DONE' ")
 
@@ -86,8 +52,9 @@ print("Please input a product ID or type 'DONE' ")
 
 #to do email you need to add sendgrid package mentioned Class 4 at 2h42min and 2h46min
 
-allowed_ids = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+#allowed_ids = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 
+total_price = 0
 selected_ids = []
 
 while True:
@@ -96,16 +63,23 @@ while True:
         break
     else:
         selected_ids.append(selected_id)
-    print(selected_id)
 
-print("We're done")
-#print(selected_ids)
-# what gets printed here is a list of strings! need to convert to float if we want to make them $
 
 for selected_id in selected_ids:
-    print(selected_id)
-
     matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
     matching_product = matching_products[0]
-    print(matching_product["name"], to_usd(matching_product["price"]))
+    total_price = total_price + matching_product["price"]
+    print("Selected Product: " + matching_product["name"] + "..." + str(to_usd((matching_product["price"]))))
 
+print("ITEM PRICE: " + str(to_usd(total_price)))
+tax = float(total_price) * 0.08375
+print("Tax: " + str(to_usd(tax)))
+overall_cost = float(total_price) + float(tax)
+print("TOTAL COST: " + str(to_usd(overall_cost)))
+
+#total_cost = str(to_usd(total_price)) + str(to_usd(tax))
+#print(to_usd(total_cost))
+
+#print("TOTAL PRICE: " + str(total_price))
+
+#print("Total Price: " + str(to_usd(total_price)))
