@@ -1,6 +1,7 @@
 import os
 import operator
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -50,9 +51,9 @@ def to_usd(my_price):
 print("Please input a product ID or type 'DONE' ")
 
 
-#thetime = datetime.datetime.now()
-#reformattedtime = timestamp.strftime("%Y-%m-%d %H:%M")
-# adapted from class 
+now = datetime.now()
+date_time = now.strftime("%Y-%m-%d, %H:%M")
+#adapted from - https://www.programiz.com/python-programming/datetime/strftime
 
 
 #to do email you need to add sendgrid package mentioned Class 4 at 2h42min and 2h46min
@@ -69,18 +70,30 @@ while True:
     else:
         selected_ids.append(selected_id)
 
+print("-------------------")
+print("GREEN FOODS GROCERY")
+print("WWW.GREEN-FOODS-GROCERY.COM")
+print("-------------------")
 
+print("CHECKOUT AT: " + date_time)
+
+print("-------------------")
+print("SELECTED PRODUCTS")
 for selected_id in selected_ids:
     matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
     matching_product = matching_products[0]
     total_price = total_price + matching_product["price"]
-    print("Selected Product: " + matching_product["name"] + "..." + str(to_usd((matching_product["price"]))))
+    print("..." + matching_product["name"] + " " + "("+str(to_usd((matching_product["price"])))+")")
 
-print("ITEM PRICE: " + str(to_usd(total_price)))
+print("-------------------")
+
+print("SUBTOTAL: " + str(to_usd(total_price)))
 tax = float(total_price) * float(TAX_RATE)
-print("Tax: " + str(to_usd(tax)))
+print("TAX: " + str(to_usd(tax)))
 overall_cost = float(total_price) + float(tax)
-print("TOTAL COST: " + str(to_usd(overall_cost)))
+print("TOTAL: " + str(to_usd(overall_cost)))
+print("-------------------")
+print("THANKS, SEE YOU AGAIN SOON!")
 
 #total_cost = str(to_usd(total_price)) + str(to_usd(tax))
 #print(to_usd(total_cost))
