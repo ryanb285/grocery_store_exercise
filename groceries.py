@@ -1,5 +1,10 @@
 import os
 import operator
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TAX_RATE = os.getenv("TAX")
 #if we need dynamic .env files we need to set them up 
 
 # to sort by products, create a new variable with the formula =sorted(list_name, key=operator.itemgetter("key / value to sort on"))
@@ -72,7 +77,7 @@ for selected_id in selected_ids:
     print("Selected Product: " + matching_product["name"] + "..." + str(to_usd((matching_product["price"]))))
 
 print("ITEM PRICE: " + str(to_usd(total_price)))
-tax = float(total_price) * 0.08375
+tax = float(total_price) * float(TAX_RATE)
 print("Tax: " + str(to_usd(tax)))
 overall_cost = float(total_price) + float(tax)
 print("TOTAL COST: " + str(to_usd(overall_cost)))
