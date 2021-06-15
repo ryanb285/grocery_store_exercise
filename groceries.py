@@ -1,6 +1,5 @@
 import os
 import operator
-import dotenv
 from dotenv import load_dotenv
 from datetime import datetime
 
@@ -98,26 +97,20 @@ print("TOTAL: " + str(to_usd(overall_cost)))
 print("-------------------")
 print("THANKS, SEE YOU AGAIN SOON!")
 
-#import os
-#import dotenv import load_dotenv
-#import sendgrid
-#from sendgrid.helpers.mail import Mail, Email, To, Content
 
-#load_dotenv()
+import sendgrid
+from sendgrid.helpers.mail import Mail, Email, To, Content
 
-#EMAIL_KEY = os.getenv("API_KEY")
-#MY_EMAIL = os.getenv("SENDER_EMAIL")
-
-#sg = sendgrid.SendGridAPIClient(EMAIL_KEY)
-#from_email = Email(MY_EMAIL)  
-#their_email = input("If you'd like an email receipt, please type your email address here: ")
-#to_email = To(their_email)  
-#subject = "Receipt from today's purchase"
-#content = Content( "TEST")
-
-
-#mail = Mail(from_email, to_email, subject, content)
-#mail_json = mail.get()
-#response = sg.client.mail.send.post(request_body=mail_json)
-#print(response.status_code)
-#print(response.headers)
+EMAIL_KEY = os.getenv("API_KEY")
+MY_EMAIL = os.getenv("SENDER_EMAIL")
+sg = sendgrid.SendGridAPIClient(EMAIL_KEY)
+from_email = Email(MY_EMAIL)  
+their_email = input("If you'd like an email receipt, please type your email address here: ")
+to_email = To(their_email)  
+subject = "Receipt from today's purchase"
+content = Content("TEST")
+mail = Mail(from_email, to_email, subject, content)
+mail_json = mail.get()
+response = sg.client.mail.send.post(request_body=mail_json)
+print(response.status_code)
+print(response.headers)
