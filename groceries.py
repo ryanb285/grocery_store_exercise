@@ -1,15 +1,14 @@
 import os
 import operator
+import dotenv
 from dotenv import load_dotenv
 from datetime import datetime
 
 load_dotenv()
-
 TAX_RATE = os.getenv("TAX")
-#if we need dynamic .env files we need to set them up 
+STORE_NAME = os.getenv("STORE")
+STORE_SITE = os.getenv("WEBSITE")
 
-# to sort by products, create a new variable with the formula =sorted(list_name, key=operator.itemgetter("key / value to sort on"))
-# you need to do this before you loop and print!
 
 
 products = [
@@ -55,10 +54,8 @@ now = datetime.now()
 date_time = now.strftime("%Y-%m-%d, %H:%M")
 #adapted from - https://www.programiz.com/python-programming/datetime/strftime
 
-
-#to do email you need to add sendgrid package mentioned Class 4 at 2h42min and 2h46min
-
 #allowed_ids = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+#to do email you need to add sendgrid package
 
 total_price = 0
 selected_ids = []
@@ -69,21 +66,16 @@ while True:
         break
     else:
         selected_ids.append(selected_id)
-   # if selected_id not in allowed_ids:
-        #print("Please enter a valid product ID")
-        #break
-    #else:
-        #selected_ids.append(selected_id)
 
 print("-------------------")
-print("GREEN FOODS GROCERY")
-print("WWW.GREEN-FOODS-GROCERY.COM")
+print(STORE_NAME)
+print(STORE_SITE)
 print("-------------------")
 
 print("CHECKOUT AT: " + date_time)
 
 print("-------------------")
-print("SELECTED PRODUCTS")
+print("SELECTED PRODUCTS: ")
 try:
     for selected_id in selected_ids:
         matching_products = [p for p in products if str(p["id"]) == str(selected_id)]
@@ -91,10 +83,10 @@ try:
         total_price = total_price + matching_product["price"]
         print("..." + matching_product["name"] + " " + "("+str(to_usd((matching_product["price"])))+")")
 except IndexError:
-        print("Invalid product ID, please re-enter a valid product ID")
+    print("INVALID PRODUCT ID, PLEASE RE-ENTER THE ITEM")
 
 
-        
+            
 
 print("-------------------")
 
@@ -106,9 +98,26 @@ print("TOTAL: " + str(to_usd(overall_cost)))
 print("-------------------")
 print("THANKS, SEE YOU AGAIN SOON!")
 
-#total_cost = str(to_usd(total_price)) + str(to_usd(tax))
-#print(to_usd(total_cost))
+#import os
+#import dotenv import load_dotenv
+#import sendgrid
+#from sendgrid.helpers.mail import Mail, Email, To, Content
 
-#print("TOTAL PRICE: " + str(total_price))
+#load_dotenv()
 
-#print("Total Price: " + str(to_usd(total_price)))
+#EMAIL_KEY = os.getenv("API_KEY")
+#MY_EMAIL = os.getenv("SENDER_EMAIL")
+
+#sg = sendgrid.SendGridAPIClient(EMAIL_KEY)
+#from_email = Email(MY_EMAIL)  
+#their_email = input("If you'd like an email receipt, please type your email address here: ")
+#to_email = To(their_email)  
+#subject = "Receipt from today's purchase"
+#content = Content( "TEST")
+
+
+#mail = Mail(from_email, to_email, subject, content)
+#mail_json = mail.get()
+#response = sg.client.mail.send.post(request_body=mail_json)
+#print(response.status_code)
+#print(response.headers)

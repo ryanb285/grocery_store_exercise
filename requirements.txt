@@ -1,0 +1,5 @@
+# add any package requirements here
+
+#conda create -n shopping-env python=3.8 
+#conda activate shopping-env
+#pip install sendgrid
